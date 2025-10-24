@@ -1,0 +1,8 @@
+FROM mysql:8.0
+
+# Define o timezone
+RUN cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+    && echo "America/Sao_Paulo" > /etc/timezone
+
+# Copia o dump inicial do banco
+COPY site-cead.sql /docker-entrypoint-initdb.d/
