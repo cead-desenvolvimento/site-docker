@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PATH=/usr/bin:/bin
+
 # CONFIG
 MYSQL_USER=${MYSQL_USER:-bkp}
 MYSQL_PASSWORD=${MYSQL_PASSWORD:-RpyCr8ALmNXeYWVRhUSfqMh7}

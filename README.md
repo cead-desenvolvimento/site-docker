@@ -6,6 +6,7 @@
 ## Configurações para _deploy_ do site do CEAD
 
 -   Copiar para a pasta `database` o _dump_ do site, obrigatoriamente com o nome `site_cead.sql`
+-   Fazer com que o arquivo `/srv/site-docker/database/backup.sh`seja executável
 -   O _site_ (arquivos do Wordpress) precisam estar em `/srv/volumes/cead/wordpress`, com dono e grupo 33 (www-data)
 
 ## Cópia dos `.env`
