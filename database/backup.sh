@@ -1,5 +1,4 @@
 #!/bin/sh
-
 PATH=/usr/bin:/bin
 
 # CONFIG
