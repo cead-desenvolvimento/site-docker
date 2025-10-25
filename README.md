@@ -5,7 +5,7 @@
 
 ## Configurações para _deploy_ do site do CEAD
 
--   Copiar para a pasta `database` o _dump_ do site, obrigatoriamente com o nome `site-cead.sql`
+-   Copiar para a pasta `database` o _dump_ do site, obrigatoriamente com o nome `site_cead.sql`
 -   O _site_ (arquivos do Wordpress) precisam estar em `/srv/volumes/cead/wordpress`, com dono e grupo 33 (www-data)
 
 ## Cópia dos `.env`

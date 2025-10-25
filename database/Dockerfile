@@ -5,4 +5,4 @@ RUN cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
     && echo "America/Sao_Paulo" > /etc/timezone
 
 # Copia o dump inicial do banco
-COPY site-cead.sql /docker-entrypoint-initdb.d/
+COPY site_cead.sql /docker-entrypoint-initdb.d/
