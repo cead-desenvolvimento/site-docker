@@ -1,0 +1,57 @@
+services:
+    db:
+        build: ./database
+        container_name: site-cead-db
+        restart: unless-stopped
+        environment:
+            TZ: America/Sao_Paulo
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+        volumes:
+            - /srv/volumes/cead/mysql:/var/lib/mysql
+        networks:
+            - site-cead-net
+        healthcheck:
+            test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+            start_period: 30s
+            interval: 10s
+            timeout: 5s
+            retries: 3
+
+    wordpress:
+        image: wordpress:php8.3-fpm
+        container_name: site-cead-app
+        restart: unless-stopped
+        environment:
+            TZ: America/Sao_Paulo
+            WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
+            WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+            WORDPRESS_DB_USER: ${MYSQL_USER}
+            WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+        volumes:
+            - /srv/volumes/cead/wordpress:/var/www/html
+        depends_on:
+            db:
+                condition: service_healthy
+        networks:
+            - site-cead-net
+
+    nginx:
+        image: nginx:alpine
+        container_name: site-cead-nginx
+        restart: unless-stopped
+        ports:
+            - "127.0.0.1:8090:80"
+        volumes:
+            - /srv/volumes/cead/wordpress:/var/www/html:ro
+            - /srv/site-docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+            - /srv/site-docker/nginx/conf.d:/etc/nginx/conf.d:ro
+        depends_on:
+            - wordpress
+        networks:
+            - site-cead-net
+
+networks:
+    site-cead-net:
