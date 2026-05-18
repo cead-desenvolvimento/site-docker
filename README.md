@@ -21,3 +21,7 @@ cd /srv/site-docker
 docker compose build
 docker compose up -d
 ```
+
+## Nome fixo da bridge Docker
+
+A rede `site-cead-net` tem o nome de bridge fixado em `br-site-cead` via `driver_opts` no `docker-compose.yml`. Isso é necessário porque o _host_ Alpine usa nftables com regras de FORWARD explícitas referenciando esse nome — se o nome mudar (o que aconteceria se a rede fosse recriada sem essa opção), os _containers_ perdem acesso à internet.
